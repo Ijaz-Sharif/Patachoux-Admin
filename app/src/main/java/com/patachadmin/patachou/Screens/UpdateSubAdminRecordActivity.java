@@ -24,7 +24,7 @@ import com.patachadmin.patachou.R;
 
 public class UpdateSubAdminRecordActivity extends AppCompatActivity {
     private EditText et_user_name,
-            et_city,et_postal_code,et_register_address,et_user_number,et_code;
+            et_city,et_postal_code,et_register_address,et_user_number;
     private FirebaseAuth firebaseAuth;
     DatabaseReference databaseReference;
     Button btnRegister;
@@ -38,7 +38,6 @@ public class UpdateSubAdminRecordActivity extends AppCompatActivity {
         et_city=findViewById(R.id.et_city);
         et_user_number=findViewById(R.id.et_user_number);
         et_register_address=findViewById(R.id.et_register_address);
-        et_code=findViewById(R.id.et_code);
         /////loading dialog
         loadingDialog=new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
@@ -72,7 +71,6 @@ public class UpdateSubAdminRecordActivity extends AppCompatActivity {
 
                 et_city.setText(dataSnapshot.child("City").getValue(String.class));
                 et_user_name.setText(dataSnapshot.child("Name").getValue(String.class));
-                et_code.setText(dataSnapshot.child("SecretCode").getValue(String.class));
                 et_postal_code.setText(dataSnapshot.child("PostalCode").getValue(String.class));
                 et_register_address.setText(dataSnapshot.child("Address").getValue(String.class));
                 et_user_number.setText(dataSnapshot.child("PhoneNumber").getValue(String.class));
@@ -95,7 +93,6 @@ public class UpdateSubAdminRecordActivity extends AppCompatActivity {
             FirebaseDatabase.getInstance().getReference("SubAdmin").child(id).child("PhoneNumber").setValue(et_user_number.getText().toString());
             FirebaseDatabase.getInstance().getReference("SubAdmin").child(id).child("City").setValue(et_city.getText().toString());
             FirebaseDatabase.getInstance().getReference("SubAdmin").child(id).child("PostalCode").setValue(et_postal_code.getText().toString());
-            FirebaseDatabase.getInstance().getReference("SubAdmin").child(id).child("SecretCode").setValue(et_code.getText().toString());
             loadingDialog.dismiss();
             Toast.makeText(UpdateSubAdminRecordActivity.this,"Record update successful",Toast.LENGTH_LONG).show();
             finish();

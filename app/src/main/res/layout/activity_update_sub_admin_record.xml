@@ -128,22 +128,7 @@
                     android:inputType="number" />
 
             </com.google.android.material.textfield.TextInputLayout>
-            <com.google.android.material.textfield.TextInputLayout
-                android:id="@+id/input_et_code"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_margin="10dp"
-                android:hint="Secret Code"
-                app:startIconDrawable="@drawable/ic_baseline_smartphone_24"
-                tools:ignore="HardcodedText">
 
-                <com.google.android.material.textfield.TextInputEditText
-                    android:id="@+id/et_code"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:inputType="number" />
-
-            </com.google.android.material.textfield.TextInputLayout>
             <com.google.android.material.textfield.TextInputLayout
                 android:id="@+id/input_register_usernumber"
                 android:layout_width="match_parent"
