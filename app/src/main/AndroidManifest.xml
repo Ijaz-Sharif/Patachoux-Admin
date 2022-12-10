@@ -21,23 +21,31 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.PatachouxAdmin"
         android:usesCleartextTraffic="true">
-        <uses-library android:name="org.apache.http.legacy" android:required="false" />
+        <activity
+            android:name=".Screens.AddProductActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"/>
+
+        <uses-library
+            android:name="org.apache.http.legacy"
+            android:required="false" />
+
         <activity
             android:name=".Screens.UpdateSubAdminRecordActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Screens.AddSubAdminActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Screens.UpdateAdminPasswordActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Screens.LoginActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Screens.SuperAdminMainActivity"
             android:exported="true" />
@@ -46,8 +54,8 @@
             android:exported="true" />
         <activity
             android:name=".Screens.SplashActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true">
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -56,8 +64,8 @@
         </activity>
         <activity
             android:name=".MainActivity"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"
-            android:exported="true" />
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
     </application>
 
 </manifest>
