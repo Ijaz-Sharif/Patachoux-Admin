@@ -115,7 +115,9 @@ public class UpdateProductActivity extends AppCompatActivity {
                               myRef.child("ProductName").setValue(product_name.getText().toString());
                               myRef.child("ProductDescription").setValue(product_des.getText().toString());
                               myRef.child("ProductImage").setValue(downloadUrl.toString());
-                              loadingDialog.show();
+
+                              loadingDialog.dismiss();
+                              Toast.makeText(UpdateProductActivity.this,"product update",Toast.LENGTH_LONG).show();
                               finish();
 
                           }
@@ -143,7 +145,9 @@ public class UpdateProductActivity extends AppCompatActivity {
               }
               myRef.child("ProductName").setValue(product_name.getText().toString());
               myRef.child("ProductDescription").setValue(product_des.getText().toString());
-              loadingDialog.show();
+              loadingDialog.dismiss();
+              Toast.makeText(UpdateProductActivity.this,"product update",Toast.LENGTH_LONG).show();
+              finish();
           }
 
         }

@@ -31,7 +31,7 @@
             android:layout_width="wrap_content"
             android:layout_height="60dp"
             android:gravity="center"
-            android:text="Add Product"
+            android:text="Update Product"
             android:textColor="@color/white"
             android:textSize="20sp"
             app:layout_constraintBottom_toBottomOf="parent"
@@ -97,7 +97,7 @@
                 app:backgroundTint="@color/black"
                 android:gravity="center"
                 android:onClick="saveProduct"
-                android:text="save"
+                android:text="update"
                 android:textColor="@color/white"
                 android:textSize="16sp"/>
         </LinearLayout>
