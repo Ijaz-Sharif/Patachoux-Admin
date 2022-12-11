@@ -33,6 +33,7 @@ import com.google.firebase.database.ValueEventListener;
 import com.patachadmin.patachou.Admin.AdminProductActivity;
 import com.patachadmin.patachou.Model.Product;
 import com.patachadmin.patachou.R;
+import com.patachadmin.patachou.User.UpdateProductPriceActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -161,16 +162,15 @@ public class UserBreadFragment extends Fragment {
                         @Override
                         public void onClick(DialogInterface dialog, int item) {
                             if (options[item].equals("Delete")) {
-
-                                dRef=  FirebaseDatabase.getInstance().getReference("User").child("Products").child("Bread").child(productArrayList.get(position).getProductId());
+                               String id=productArrayList.get(position).getProductId();
+                                dRef=  FirebaseDatabase.getInstance().getReference("User")
+                                        .child(getUserId(getContext())).child(USERID).child("Products").child("Bread").child(productArrayList.get(position).getProductId());
                                 dRef.removeValue();
                                 getProductsData();
                             } else if (options[item].equals("Update Price")) {
                                 TYPE ="Bread";
                                 PRODUCTID =productArrayList.get(position).getProductId();
-
-
-
+                                startActivity(new Intent(getContext(), UpdateProductPriceActivity.class));
                                 dialog.dismiss();
 
 

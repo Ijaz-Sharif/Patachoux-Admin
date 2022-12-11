@@ -79,9 +79,9 @@ public class SuperAdminMainActivity extends AppCompatActivity {
             case R.id.logoutUser:
                 setAdminLoginStatus(SuperAdminMainActivity.this,false);
                 setSuperAdminLoginStatus(SuperAdminMainActivity.this,false);
-
                 startActivity(new Intent(SuperAdminMainActivity.this, LoginActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
+                finish();
                 return true;
             case R.id.setting_account:
                 startActivity(new Intent(SuperAdminMainActivity.this, UpdateAdminPasswordActivity.class));

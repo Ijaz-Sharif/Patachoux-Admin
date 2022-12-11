@@ -1,5 +1,8 @@
 package com.patachadmin.patachou.Fragments;
 
+import static com.patachadmin.patachou.Utils.Constant.USERID;
+import static com.patachadmin.patachou.Utils.Constant.getUserId;
+
 import android.annotation.SuppressLint;
 import android.app.Dialog;
 import android.content.DialogInterface;
@@ -138,7 +141,9 @@ public class PasteryFragment extends Fragment {
                         public void onClick(DialogInterface dialog, int item) {
                             if (options[item].equals("Delete")) {
 
-                                dRef=  FirebaseDatabase.getInstance().getReference("Products").child("Pastry").child(productArrayList.get(position).getProductId());
+                                dRef=  FirebaseDatabase.getInstance().getReference("Products")
+                                        .child(getUserId(getContext())).child(USERID)
+                                        .child("Pastry").child(productArrayList.get(position).getProductId());
                                 dRef.removeValue();
                                 getProductsData();
                             } else if (options[item].equals("Update")) {
@@ -149,7 +154,6 @@ public class PasteryFragment extends Fragment {
                                         .putExtra("pic",productArrayList.get(position).getProductPic())
                                         .putExtra("name",productArrayList.get(position).getProductName())
                                         .putExtra("id",productArrayList.get(position).getProductId()));
-
                                 dialog.dismiss();
 
 
