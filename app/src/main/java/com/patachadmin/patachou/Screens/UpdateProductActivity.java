@@ -115,6 +115,7 @@ public class UpdateProductActivity extends AppCompatActivity {
                               myRef.child("ProductName").setValue(product_name.getText().toString());
                               myRef.child("ProductDescription").setValue(product_des.getText().toString());
                               myRef.child("ProductImage").setValue(downloadUrl.toString());
+                              loadingDialog.show();
                               finish();
 
                           }
@@ -142,7 +143,9 @@ public class UpdateProductActivity extends AppCompatActivity {
               }
               myRef.child("ProductName").setValue(product_name.getText().toString());
               myRef.child("ProductDescription").setValue(product_des.getText().toString());
+              loadingDialog.show();
           }
+
         }
 
 

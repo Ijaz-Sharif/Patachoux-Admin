@@ -147,7 +147,8 @@ public class PasteryFragment extends Fragment {
                                         .putExtra("price",productArrayList.get(position).getProductPrice())
                                         .putExtra("description",productArrayList.get(position).getProductDescription())
                                         .putExtra("pic",productArrayList.get(position).getProductPic())
-                                        .putExtra("name",productArrayList.get(position).getProductName()));
+                                        .putExtra("name",productArrayList.get(position).getProductName())
+                                        .putExtra("id",productArrayList.get(position).getProductId()));
 
                                 dialog.dismiss();
 
