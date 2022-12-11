@@ -22,6 +22,9 @@
         android:theme="@style/Theme.PatachouxAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Screens.UpdateProductActivity"
+            android:exported="true" />
+        <activity
             android:name=".User.UpdateProductPriceActivity"
             android:exported="true" />
         <activity
