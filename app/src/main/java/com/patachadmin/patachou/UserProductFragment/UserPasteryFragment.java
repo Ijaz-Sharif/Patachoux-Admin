@@ -1,5 +1,7 @@
 package com.patachadmin.patachou.UserProductFragment;
 
+import static com.patachadmin.patachou.Utils.Constant.PRODUCTID;
+import static com.patachadmin.patachou.Utils.Constant.TYPE;
 import static com.patachadmin.patachou.Utils.Constant.USERID;
 import static com.patachadmin.patachou.Utils.Constant.getUserId;
 
@@ -151,7 +153,7 @@ public class UserPasteryFragment extends Fragment {
                 @Override
                 public void onClick(View view) {
 
-                    final CharSequence[] options = {"Update", "Delete", "Cancel"};
+                    final CharSequence[] options = {"Update Price", "Delete", "Cancel"};
                     AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
                     builder.setTitle("Select option");
                     builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -162,8 +164,9 @@ public class UserPasteryFragment extends Fragment {
                                 dRef=   FirebaseDatabase.getInstance().getReference("User").child("Products").child("Pastry").child(productArrayList.get(position).getProductId());
                                 dRef.removeValue();
                                 getProductsData();
-                            } else if (options[item].equals("Update")) {
-
+                            }  else if (options[item].equals("Update Price")) {
+                                TYPE ="Bread";
+                                PRODUCTID =productArrayList.get(position).getProductId();
 
 
 
