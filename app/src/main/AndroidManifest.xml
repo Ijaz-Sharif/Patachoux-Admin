@@ -22,13 +22,21 @@
         android:theme="@style/Theme.PatachouxAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Order.OrderSubActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
+        <activity
+            android:name=".Order.OrderActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
+        <activity
             android:name=".Screens.UpdateProductActivity"
             android:exported="true"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"/>
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".User.UpdateProductPriceActivity"
             android:exported="true"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"/>
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Screens.DeliveryBoyActivity"
             android:exported="true"

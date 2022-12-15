@@ -32,6 +32,7 @@ import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
 import com.patachadmin.patachou.Model.User;
+import com.patachadmin.patachou.Order.OrderActivity;
 import com.patachadmin.patachou.R;
 import com.patachadmin.patachou.User.UserProductActivity;
 import com.squareup.picasso.Picasso;
@@ -111,13 +112,13 @@ public class AdminMainActivity extends AppCompatActivity {
                 startActivity(new Intent(AdminMainActivity.this, LoginActivity.class)
                         .setFlags(Intent.FLAG_ACTIVITY_NEW_TASK | Intent.FLAG_ACTIVITY_CLEAR_TASK));
                 return true;
-//
+
             case R.id.view_suplier:
                 startActivity(new Intent(AdminMainActivity.this, DeliveryBoyActivity.class));
                 return true;
-//            case R.id.view_order:
-//                startActivity(new Intent(AdminMainActivity.this, OrderActivity.class));
-              //  return true;
+            case R.id.view_order:
+                startActivity(new Intent(AdminMainActivity.this, OrderActivity.class));
+                return true;
 
             default:
                 return super.onOptionsItemSelected(item);

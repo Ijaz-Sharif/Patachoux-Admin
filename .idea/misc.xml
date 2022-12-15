@@ -13,6 +13,8 @@
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_delivery_boy.xml" value="0.25885416666666666" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_login.xml" value="0.25885416666666666" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_main.xml" value="0.25885416666666666" />
+        <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_order.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_order_sub.xml" value="0.25885416666666666" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_splash.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_super_admin_main.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/activity_update_admin_password.xml" value="0.25885416666666666" />
@@ -27,7 +29,9 @@
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/fragment_user_bread.xml" value="0.25885416666666666" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/fragment_user_pastery.xml" value="0.25885416666666666" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/item_admin.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/item_order_splier.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/item_product.xml" value="0.27291666666666664" />
+        <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/item_slip.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/item_suplier.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/layout/loading_progress_dialog.xml" value="0.27291666666666664" />
         <entry key="..\:/Android Projects/Patachoux_project/admin/updateProject/Patachoux-Admin/app/src/main/res/menu/menu_main.xml" value="0.27291666666666664" />
