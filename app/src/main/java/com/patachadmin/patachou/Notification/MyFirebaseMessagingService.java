@@ -12,6 +12,7 @@ import com.google.firebase.messaging.FirebaseMessagingService;
 import com.google.firebase.messaging.RemoteMessage;
 import com.patachadmin.patachou.Model.NotificationUtils;
 import com.patachadmin.patachou.Screens.AdminMainActivity;
+import com.patachadmin.patachou.Screens.SplashActivity;
 
 import org.json.JSONException;
 import org.json.JSONObject;
@@ -59,7 +60,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
 
             String date = String.valueOf(new Date().getTime());
 
-            Intent resultIntent = new Intent(getApplicationContext(), AdminMainActivity.class);
+            Intent resultIntent = new Intent(getApplicationContext(), SplashActivity.class);
 
 
             Intent pushNotification = new Intent("PUSH_NOTIFICATION");
