@@ -56,7 +56,7 @@ public class MyFirebaseMessagingService extends FirebaseMessagingService {
         try {
             String title = notificationmessage.getString("title");
             String body = notificationmessage.getString("body");
-
+            String check=notificationmessage.getString("check");
 
             String date = String.valueOf(new Date().getTime());
 
