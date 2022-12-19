@@ -4,6 +4,7 @@ import static com.patachadmin.patachou.Utils.Constant.getUserId;
 import static com.patachadmin.patachou.Utils.Constant.getUsername;
 
 import android.content.Context;
+import android.widget.Toast;
 
 import androidx.annotation.NonNull;
 
@@ -39,7 +40,7 @@ public class NotificationService {
 
 
     public ArrayList<String> deviceTokenArrayList = new ArrayList<String>();
- public  String deviceToken;
+    public  String deviceToken;
 
 
 
@@ -72,7 +73,56 @@ public class NotificationService {
 
 
 
+    public  void completeAdminOrder( final Context context , final CallListner callListner){
+        JSONObject jsonObject = new JSONObject();
+        JSONObject bodyJson = new JSONObject();
+        try {
+            jsonObject.put("title","Order Completed");
+            jsonObject.put("body",getUsername(context)+" has complete the order");
+            jsonObject.put("check","user");
+            bodyJson.put("to",deviceToken);
+            bodyJson.put("data",jsonObject);
+            final String requestBody = bodyJson.toString();
 
+            JsonObjectRequest jsonOblect = new JsonObjectRequest(Request.Method.POST, url, bodyJson, new Response.Listener<JSONObject>() {
+                @Override
+                public void onResponse(JSONObject response) {
+
+                     Toast.makeText(context, "Response:  " + response.toString(), Toast.LENGTH_SHORT).show();
+                    callListner.callback(true);
+                }
+            }, new Response.ErrorListener() {
+                @Override
+                public void onErrorResponse(VolleyError error) {
+
+                      Toast.makeText(context, "error:  " + error.toString(), Toast.LENGTH_SHORT).show();
+                    callListner.callback(false);
+
+
+                }
+            }) {
+                @Override
+                public Map<String, String> getHeaders() throws AuthFailureError {
+                    Map<String, String> params = new HashMap<>();
+                    params.put("Authorization", serverKey);
+                    params.put("Content-Type","application/json");
+                    return params;
+                }
+            };
+
+
+            RequestQueue a = Volley.newRequestQueue(context);
+
+            a.add(jsonOblect);
+
+
+        } catch (JSONException e) {
+            e.printStackTrace();
+        }
+
+
+
+    }
 
     public  void completeOrder( final Context context , final CallListner callListner){
         JSONObject jsonObject = new JSONObject();
