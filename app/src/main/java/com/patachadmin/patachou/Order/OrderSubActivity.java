@@ -52,7 +52,6 @@ public class OrderSubActivity extends AppCompatActivity {
     int index=0;
     String dial;
     boolean notificationStatus=false;
-    int a=0;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -203,6 +202,7 @@ public class OrderSubActivity extends AppCompatActivity {
             databaseReference.child("Status").setValue("InProgress");
             databaseReference.child("SuplierName").setValue(getUsername(OrderSubActivity.this));
             loadingDialog.dismiss();
+            Toast.makeText(OrderSubActivity.this,"order started ",Toast.LENGTH_LONG).show();
             finish();
         }
     }
@@ -293,7 +293,6 @@ public class OrderSubActivity extends AppCompatActivity {
 
     public void completeOrder(){
         notificationStatus=true;
-        a++;
         NotificationService.getInstance().getDeviceToken(OrderSubActivity.this,OrderList.get(index).getUserId() , new CallListner() {
             @Override
             public void callback(boolean status) {
@@ -306,7 +305,7 @@ public class OrderSubActivity extends AppCompatActivity {
                                 databaseReference.child("Status").setValue("Complete");
                                 databaseReference.child("SuplierName").setValue(getUsername(OrderSubActivity.this));
 
-                                Toast.makeText(OrderSubActivity.this,"order completed "+a,Toast.LENGTH_LONG).show();
+                                Toast.makeText(OrderSubActivity.this,"order completed ",Toast.LENGTH_LONG).show();
                             }
 
                             loadingDialog.dismiss();
