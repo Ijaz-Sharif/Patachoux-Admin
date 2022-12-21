@@ -24,7 +24,6 @@ import com.patachadmin.patachou.R;
 
 public class UpdateAdminPasswordActivity extends AppCompatActivity {
     private EditText etLoginEmail, etLoginPassword;
-    DatabaseReference myRef;
     private Dialog loadingDialog;
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -39,8 +38,6 @@ public class UpdateAdminPasswordActivity extends AppCompatActivity {
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
         etLoginEmail =findViewById(R.id.et_login_email);
         etLoginPassword = findViewById(R.id.et_login_password);
-        myRef = FirebaseDatabase.getInstance().getReference("SuperAdmin");
-
         etLoginEmail.setText(getAdminEmail(this));
         etLoginPassword.setText(getAdminPassword(this));
     }
