@@ -2,6 +2,8 @@ package com.patachadmin.patachou.Screens;
 
 import static com.patachadmin.patachou.Utils.Constant.getAdminEmail;
 import static com.patachadmin.patachou.Utils.Constant.getAdminPassword;
+import static com.patachadmin.patachou.Utils.Constant.setAdminEmail;
+import static com.patachadmin.patachou.Utils.Constant.setAdminPassword;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
@@ -10,9 +12,11 @@ import androidx.appcompat.app.AppCompatDelegate;
 import android.app.Dialog;
 import android.os.Build;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
@@ -37,15 +41,11 @@ public class UpdateAdminPasswordActivity extends AppCompatActivity {
         etLoginPassword = findViewById(R.id.et_login_password);
         myRef = FirebaseDatabase.getInstance().getReference("SuperAdmin");
 
-
-    }
-
-    @Override
-    protected void onStart() {
         etLoginEmail.setText(getAdminEmail(this));
         etLoginPassword.setText(getAdminPassword(this));
-        super.onStart();
     }
+
+
 
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     private boolean validate(String email, String password) {
@@ -59,17 +59,26 @@ public class UpdateAdminPasswordActivity extends AppCompatActivity {
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void updateData(View view) {
 
+//
         String email = etLoginEmail.getText().toString();
         String password = etLoginPassword.getText().toString();
-        if (validate(email, password)) requestLogin(email, password);
+        requestLogin(email,password);
+//        if (validate(email, password)) requestLogin(email, password);
     }
     private void requestLogin(String email, String password) {
-        loadingDialog.show();
 
-        myRef.child("AdminEmail").setValue(email);
-        myRef.child("AdminPassword").setValue(password);
-        loadingDialog.dismiss();
-        finish();
+           try {
+               FirebaseDatabase.getInstance().getReference("SuperAdmin").child("AdminEmail").setValue(etLoginEmail.getText().toString());
+               FirebaseDatabase.getInstance().getReference("SuperAdmin").child("AdminPassword").setValue( etLoginPassword.getText().toString());
+               setAdminPassword(this,password);
+               setAdminEmail(this,email);
+               Toast.makeText(UpdateAdminPasswordActivity.this, "Record updated", Toast.LENGTH_SHORT).show();
+           }
+           catch (Exception e){
+               Log.d("error",e.getMessage().toString());
+           }
+
+
 
 
     }

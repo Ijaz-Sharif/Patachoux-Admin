@@ -158,7 +158,8 @@ public class AdminMainActivity extends AppCompatActivity {
                         public void onClick(DialogInterface dialog, int item) {
                             if (options[item].equals("Delete")) {
                                 dialog.dismiss();
-                                FirebaseDatabase.getInstance().getReference("User").child(getUserId(AdminMainActivity.this)).child(userArrayList.get(position).getId());
+                                FirebaseDatabase.getInstance().getReference("User").child(getUserId(AdminMainActivity.this)).child(userArrayList.get(position).getId()).removeValue();
+                                     getUserData();
                             } else if (options[item].equals("Cancel")) {
                                 dialog.dismiss();
                             }

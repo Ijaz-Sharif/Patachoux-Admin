@@ -168,7 +168,7 @@ public class UserPasteryFragment extends Fragment {
                                 dRef.removeValue();
                                 getProductsData();
                             }  else if (options[item].equals("Update Price")) {
-                                TYPE ="Bread";
+                                TYPE ="Pastry";
                                 PRODUCTID =productArrayList.get(position).getProductId();
                                 startActivity(new Intent(getContext(), UpdateProductPriceActivity.class));
 

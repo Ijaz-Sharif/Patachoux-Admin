@@ -145,7 +145,7 @@ public class BreadFragment extends Fragment {
                                 startActivity(new Intent(getContext(), UpdateProductActivity.class)
                                         .putExtra("type","Bread")
                                         .putExtra("description",productArrayList.get(position).getProductDescription())
-                                        .putExtra("pic",productArrayList.get(position).getProductPrice())
+                                        .putExtra("pic",productArrayList.get(position).getProductPic())
                                         .putExtra("name",productArrayList.get(position).getProductName())
                                         .putExtra("id",productArrayList.get(position).getProductId()));
 
