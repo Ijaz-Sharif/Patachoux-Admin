@@ -84,7 +84,7 @@ public class SuperAdminMainActivity extends AppCompatActivity {
                 finish();
                 return true;
             case R.id.setting_account:
-                startActivity(new Intent(SuperAdminMainActivity.this, UpdateAdminPasswordActivity.class));
+                startActivity(new Intent(SuperAdminMainActivity.this, UpdatePasswordActivity.class));
                 return true;
             case R.id.view_products:
                 startActivity(new Intent(SuperAdminMainActivity.this, MainActivity.class));

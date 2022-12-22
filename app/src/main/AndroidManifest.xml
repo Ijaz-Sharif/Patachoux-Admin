@@ -22,6 +22,10 @@
         android:theme="@style/Theme.PatachouxAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".Screens.UpdatePasswordActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"/>
+        <activity
             android:name=".Order.OrderSubActivity"
             android:exported="true"
             android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
@@ -79,10 +83,6 @@
             android:exported="true"
             android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
-            android:name=".Screens.UpdateAdminPasswordActivity"
-            android:exported="true"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
-        <activity
             android:name=".Screens.LoginActivity"
             android:exported="true"
             android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
@@ -106,6 +106,7 @@
             android:name=".MainActivity"
             android:exported="true"
             android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
+
         <service
             android:name=".Notification.MyFirebaseMessagingService"
             android:exported="false">
