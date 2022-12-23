@@ -61,24 +61,27 @@ public class LoginActivity extends AppCompatActivity {
         myRef = FirebaseDatabase.getInstance().getReference("SuperAdmin");
     }
     @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
-    private boolean validate(String email, String password) {
-        if (email.isEmpty()) etLoginEmail.setError("Enter email!");
-        else if (!email.contains("@")||!email.contains(".")) etLoginEmail.setError("Enter valid email!");
-        else if (password.isEmpty()) etLoginPassword.setError("Enter password!");
-        else if (password.length()<6) etLoginPassword.setError("Password must be at least 6 characters!");
-        else return true;
-        return false;
-    }
-    @RequiresApi(api = Build.VERSION_CODES.GINGERBREAD)
     public void loginAdmin(View view) {
 
-        String email = etLoginEmail.getText().toString();
-        String password = etLoginPassword.getText().toString();
-        if (validate(email, password)) requestLogin(email, password);
+
+        if (! etLoginEmail.getText().toString().contains("@")||! etLoginEmail.getText().toString().contains(".")){
+            etLoginEmail.setError("Enter valid email!");
+        }
+        else if (etLoginPassword.getText().toString().isEmpty()) {
+            etLoginPassword.setError("Enter password!");
+        }
+        else if ( etLoginEmail.getText().toString().isEmpty())
+        {
+            etLoginEmail.setError("Enter email!");
+
+        }
+        else {
+            requestLogin( etLoginEmail.getText().toString(),  etLoginPassword.getText().toString());
+        }
     }
     private void requestLogin(String email, String password) {
         loadingDialog.show();
-        myRef.addValueEventListener(new ValueEventListener() {
+        myRef.addListenerForSingleValueEvent(new ValueEventListener()  {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
 
@@ -90,22 +93,23 @@ public class LoginActivity extends AppCompatActivity {
                     // open the admin dashboard screen
                     setSuperAdminLoginStatus(LoginActivity.this,true);
                     setAdminLoginStatus(LoginActivity.this,false);
-
                     setAdminEmail(LoginActivity.this,email);
                     setAdminPassword(LoginActivity.this,password);
+                    loadingDialog.dismiss();
                     startActivity(new Intent(getApplicationContext(), SuperAdminMainActivity.class));
                     finish();
 
                 }
-
-
                 else {
                     firebaseAuth.signInWithEmailAndPassword(email, password).addOnCompleteListener(new OnCompleteListener<AuthResult>() {
                         @Override
                         public void onComplete(@NonNull Task<AuthResult> task) {
                             if (!task.isSuccessful()) {
-                                loadingDialog.dismiss();
-                                Toast.makeText(LoginActivity.this, "wrong mail or password" + task.getException(), Toast.LENGTH_LONG).show();
+                                if(loadingDialog.isShowing()){
+                                    loadingDialog.dismiss();
+                                    Toast.makeText(LoginActivity.this, "wrong mail or password" + task.getException(), Toast.LENGTH_LONG).show();
+                                }
+
                             } else if (task.isSuccessful()) {
                                 getData();
 
