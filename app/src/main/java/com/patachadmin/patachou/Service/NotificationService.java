@@ -48,7 +48,7 @@ public class NotificationService {
 
     public void getDeviceToken(Context c,String userId ,CallListner callListner){
         DatabaseReference myRef1=   FirebaseDatabase.getInstance().getReference("User").child(getUserId(c)).child(userId);
-        myRef1.addValueEventListener(new ValueEventListener() {
+        myRef1.addListenerForSingleValueEvent(new ValueEventListener() {
             @Override
             public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
                 deviceToken =dataSnapshot.child("DeviceToken").getValue(String.class);
