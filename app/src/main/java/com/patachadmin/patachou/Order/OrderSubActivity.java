@@ -121,6 +121,7 @@ public class OrderSubActivity extends AppCompatActivity {
     }
 
 
+
     public void getProductsData(){
         databaseReference =  FirebaseDatabase.getInstance().getReference().child("SubAdmin")
                 .child(getUserId(this)).child("Order")
@@ -199,11 +200,44 @@ public class OrderSubActivity extends AppCompatActivity {
 
         }
         else {
-            databaseReference.child("Status").setValue("InProgress");
-            databaseReference.child("SuplierName").setValue(getUsername(OrderSubActivity.this));
-            loadingDialog.dismiss();
-            Toast.makeText(OrderSubActivity.this,"order started ",Toast.LENGTH_LONG).show();
-            finish();
+
+
+
+            databaseReference.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(@NonNull DataSnapshot dataSnapshot) {
+
+                    // get the admin email and password from the firebase
+                    String SuplierName = dataSnapshot.child("SuplierName").getValue().toString();
+
+                    if(!SuplierName.equals(getUsername(OrderSubActivity.this))&&!SuplierName.equals("none")){
+                        btn_order_status.setVisibility(View.GONE);
+                        Toast.makeText(OrderSubActivity.this,"order is accepted by another delivery boy",Toast.LENGTH_LONG).show();
+                        loadingDialog.dismiss();
+                        finish();
+                    }
+                    else {
+                        databaseReference.child("Status").setValue("InProgress");
+                        databaseReference.child("SuplierName").setValue(getUsername(OrderSubActivity.this));
+                        loadingDialog.dismiss();
+                        Toast.makeText(OrderSubActivity.this,"order started ",Toast.LENGTH_LONG).show();
+                        finish();
+                    }
+                    // validate the email and password
+
+
+
+                }
+                @Override
+                public void onCancelled(@NonNull DatabaseError databaseError) {
+
+                }
+            });
+
+
+
+
+
         }
     }
 
