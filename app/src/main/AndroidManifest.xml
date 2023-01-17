@@ -22,9 +22,17 @@
         android:theme="@style/Theme.PatachouxAdmin"
         android:usesCleartextTraffic="true">
         <activity
+            android:name=".UserReport.ReportDetailActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
+        <activity
+            android:name=".UserReport.ReportActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
+        <activity
             android:name=".Screens.UpdatePasswordActivity"
             android:exported="true"
-            android:theme="@style/Theme.PatachouxAdmin.NoActionBar"/>
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
         <activity
             android:name=".Order.OrderSubActivity"
             android:exported="true"
