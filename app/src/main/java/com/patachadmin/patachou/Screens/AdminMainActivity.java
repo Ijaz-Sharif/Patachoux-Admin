@@ -35,6 +35,7 @@ import com.patachadmin.patachou.Model.User;
 import com.patachadmin.patachou.Order.OrderActivity;
 import com.patachadmin.patachou.R;
 import com.patachadmin.patachou.User.UserProductActivity;
+import com.patachadmin.patachou.UserReport.ReportActivity;
 import com.squareup.picasso.Picasso;
 
 import java.util.ArrayList;
@@ -150,7 +151,7 @@ public class AdminMainActivity extends AppCompatActivity {
                 @Override
                 public void onClick(View view) {
 
-                    final CharSequence[] options = {"Delete","View Products", "Cancel"};
+                    final CharSequence[] options = {"Delete","View Products","View Report", "Cancel"};
                     AlertDialog.Builder builder = new AlertDialog.Builder(AdminMainActivity.this);
                     builder.setTitle("Select option");
                     builder.setItems(options, new DialogInterface.OnClickListener() {
@@ -161,6 +162,10 @@ public class AdminMainActivity extends AppCompatActivity {
                                 FirebaseDatabase.getInstance().getReference("User").child(getUserId(AdminMainActivity.this)).child(userArrayList.get(position).getId()).removeValue();
                                      getUserData();
                             } else if (options[item].equals("Cancel")) {
+                                dialog.dismiss();
+                            } else if (options[item].equals("View Report")) {
+                                        startActivity(new Intent(AdminMainActivity.this, ReportActivity.class)
+                                        .putExtra("userId",userArrayList.get(position).getId()));
                                 dialog.dismiss();
                             }
                             else if (options[item].equals("View Products")) {

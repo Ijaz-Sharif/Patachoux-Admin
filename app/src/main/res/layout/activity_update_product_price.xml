@@ -54,6 +54,7 @@
 
         <com.google.android.material.textfield.TextInputEditText
             android:id="@+id/product_price"
+
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:inputType="number" />

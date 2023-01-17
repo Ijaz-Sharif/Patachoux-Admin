@@ -71,7 +71,8 @@ public class OrderActivity extends AppCompatActivity {
                             postSnapshot.child("Date").getValue(String.class)
                             ,postSnapshot.child("Status").getValue(String.class) ,
                             postSnapshot.child("SuplierName").getValue(String.class)
-                            , postSnapshot.child("Name").getValue(String.class), postSnapshot.child("UserAddress").getValue(String.class)
+                            , postSnapshot.child("Name").getValue(String.class),
+                            postSnapshot.child("UserAddress").getValue(String.class)
                             , postSnapshot.child("UserNumber").getValue(String.class)
                             ,postSnapshot.child("UserId").getValue(String.class)
                             ,postSnapshot.child("DeliveryOrderTime").getValue(String.class)
