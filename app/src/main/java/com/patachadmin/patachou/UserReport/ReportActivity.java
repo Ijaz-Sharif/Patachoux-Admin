@@ -15,7 +15,6 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.TextView;
 import android.widget.Toast;
 
 import com.google.firebase.database.DataSnapshot;
@@ -23,11 +22,11 @@ import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
 import com.google.firebase.database.FirebaseDatabase;
 import com.google.firebase.database.ValueEventListener;
-import com.patachadmin.patachou.Model.Order;
-import com.patachadmin.patachou.Order.OrderActivity;
+import com.patachadmin.patachou.Model.Report;
 import com.patachadmin.patachou.R;
 
 import java.text.ParseException;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Locale;
@@ -39,6 +38,7 @@ public class ReportActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     final Calendar myCalendar= Calendar.getInstance();
     DatePickerDialog datePicker;
+    ArrayList<Report> reportArrayList=new ArrayList<Report>();
     @RequiresApi(api = Build.VERSION_CODES.N)
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -128,6 +128,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
     }
+    @RequiresApi(api = Build.VERSION_CODES.N)
     public void getDifference(Date startDate, Date endDate) {
         //milliseconds
         long different = endDate.getTime() - startDate.getTime();
@@ -145,11 +146,12 @@ public class ReportActivity extends AppCompatActivity {
         }
         else {
             getReportsData();
+
         }
     }
-    public void getReportDateDifference(Date startDate, Date endDate) {
+    public boolean getDifferenceFromStartDate(Date startDate, Date date) {
         //milliseconds
-        long different = endDate.getTime() - startDate.getTime();
+        long different = date.getTime() - startDate.getTime();
         long secondsInMilli = 1000;
         long minutesInMilli = secondsInMilli * 60;
         long hoursInMilli = minutesInMilli * 60;
@@ -157,17 +159,66 @@ public class ReportActivity extends AppCompatActivity {
         long elapsedDays = different / daysInMilli;
 
         if(elapsedDays<0){
-            Toast.makeText(this,"start date in not greater then end date ",Toast.LENGTH_LONG).show();
-        }else if(elapsedDays==0){
-            Toast.makeText(this,"start date and end date should be different ",Toast.LENGTH_LONG).show();
+             return false;
 
         }
+        else {
+            return true;
+        }
     }
+    public boolean getDifferenceFromEndDate(Date endDate, Date date) {
+        //milliseconds
+        long different = date.getTime() - endDate.getTime();
+        long secondsInMilli = 1000;
+        long minutesInMilli = secondsInMilli * 60;
+        long hoursInMilli = minutesInMilli * 60;
+        long daysInMilli = hoursInMilli * 24;
+        long elapsedDays = different / daysInMilli;
+
+        if(elapsedDays<0){
+            return false;
+
+        }
+        else {
+            return true;
+        }
+    }
+
+    public boolean addRecord(String reportDate){
+
+        try {
+            Date date1 = null;
+            Date date2 = null;
+            Date date = null;
+            if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.N) {
+
+                date1 = simpleDateFormat.parse(start_date.getText().toString());
+                date2 = simpleDateFormat.parse(end_date.getText().toString());
+                date = simpleDateFormat.parse(reportDate);
+                if(getDifferenceFromStartDate(date1,date)&&getDifferenceFromEndDate(date,date2)){
+                    //Toast.makeText(this," greater the start date",Toast.LENGTH_LONG).show();
+                    return true;
+                }
+                else {
+                    return false;
+                }
+            }
+
+
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return false;
+
+
+    }
+
 
     public void getReportsData(){
 
        DatabaseReference dRef=    FirebaseDatabase.getInstance().getReference().child("SubAdmin")
                 .child(getUserId(this)).child("Order");
+       reportArrayList.clear();
         loadingDialog.show();
 
         dRef.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -175,16 +226,17 @@ public class ReportActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
 
-//                    OrderList.add(new Order(postSnapshot.child("OrderId").getValue(String.class),
-//                            postSnapshot.child("Date").getValue(String.class)
-//                            ,postSnapshot.child("Status").getValue(String.class) ,
-//                            postSnapshot.child("SuplierName").getValue(String.class)
-//                            , postSnapshot.child("Name").getValue(String.class),
-//                            postSnapshot.child("UserAddress").getValue(String.class)
-//                            , postSnapshot.child("UserNumber").getValue(String.class)
-//                            ,postSnapshot.child("UserId").getValue(String.class)
-//                            ,postSnapshot.child("DeliveryOrderTime").getValue(String.class)
-//                            ,postSnapshot.child("DeliveryOrderDate").getValue(String.class)));
+                    if(addRecord(postSnapshot.child("DeliveryOrderDate").getValue(String.class))){
+                        if(postSnapshot.child("Status").getValue(String.class).equals("Complete")){
+
+                        reportArrayList.add(new Report(
+                                postSnapshot.child("DeliveryOrderDate").getValue(String.class)
+                                , postSnapshot.child("TotalPayment").getValue(String.class),
+                                postSnapshot.child("DeliveryOrderTime").getValue(String.class)
+                               ));
+
+                        }
+                    }
                 }
 
                 loadingDialog.dismiss();
