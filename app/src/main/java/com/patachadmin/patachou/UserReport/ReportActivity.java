@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
@@ -58,7 +59,7 @@ public class ReportActivity extends AppCompatActivity {
     SimpleDateFormat simpleDateFormat;
     final Calendar myCalendar= Calendar.getInstance();
     DatePickerDialog datePicker;
-    ArrayList<Report> reportArrayList=new ArrayList<Report>();
+  public static   ArrayList<Report> reportArrayList=new ArrayList<Report>();
     int totalPayment;
     @RequiresApi(api = Build.VERSION_CODES.N)
 
@@ -258,15 +259,15 @@ public class ReportActivity extends AppCompatActivity {
                         if(addRecord(postSnapshot.child("DeliveryOrderDate").getValue(String.class))){
                             if(postSnapshot.child("Status").getValue(String.class).equals("Complete")){
                                 float payment= Float.parseFloat(postSnapshot.child("TotalPayment").getValue(String.class));
-                               String DATA= String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(3))
-                                       +String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(4));
+                               String DATA= String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(0))
+                                       +String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(1));
                                 barEntriesArrayList.add(new BarEntry(payment,
                                         Float.parseFloat(DATA)));
-//                                reportArrayList.add(new Report(
-//                                        postSnapshot.child("DeliveryOrderDate").getValue(String.class)
-//                                        , postSnapshot.child("TotalPayment").getValue(String.class),
-//                                        postSnapshot.child("DeliveryOrderTime").getValue(String.class)
-//                                ));
+                                reportArrayList.add(new Report(
+                                        postSnapshot.child("DeliveryOrderDate").getValue(String.class)
+                                        , postSnapshot.child("TotalPayment").getValue(String.class),
+                                        postSnapshot.child("DeliveryOrderTime").getValue(String.class)
+                                ));
                                 totalPayment=totalPayment+Integer.parseInt(postSnapshot.child("TotalPayment").getValue(String.class));
 
                             }
@@ -275,15 +276,16 @@ public class ReportActivity extends AppCompatActivity {
 
                 }
 
-                loadingDialog.dismiss();
 
-                barDataSet = new BarDataSet(barEntriesArrayList, "Data");
+
+                barDataSet = new BarDataSet(barEntriesArrayList, "X-Axis Total Payment , Y-Axis Date");
                 barData = new BarData(barDataSet);
                 chart.setData(barData);
                 barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
                 barDataSet.setValueTextColor(Color.BLACK);
                 barDataSet.setValueTextSize(16f);
                 chart.getDescription().setEnabled(false);
+                loadingDialog.dismiss();
 
 
 
@@ -306,4 +308,12 @@ public class ReportActivity extends AppCompatActivity {
     }
 
 
+    public void openReportList(View view) {
+         if(reportArrayList.size()!=0){
+             startActivity(new Intent(ReportActivity.this,ReportDetailActivity.class));
+         }
+         else {
+             Toast.makeText(ReportActivity.this,"no record",Toast.LENGTH_LONG).show();
+         }
+    }
 }

@@ -28,6 +28,12 @@
 
         </activity>
         <activity
+            android:name=".UserReport.ReportDetailActivity"
+            android:exported="true"
+            android:theme="@style/Theme.PatachouxAdmin.NoActionBar" >
+
+        </activity>
+        <activity
             android:name=".Screens.UpdatePasswordActivity"
             android:exported="true"
             android:theme="@style/Theme.PatachouxAdmin.NoActionBar" />
