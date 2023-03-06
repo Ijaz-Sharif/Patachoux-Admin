@@ -42,53 +42,119 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
 
-    <LinearLayout
-        android:layout_width="match_parent"
-        android:layout_height="60dp"
-        android:weightSum="3"
-        android:paddingTop="10dp"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/constraintLayout">
+   <ScrollView
+       android:layout_width="match_parent"
+       android:layout_height="match_parent"
+       app:layout_constraintBottom_toBottomOf="parent"
+       app:layout_constraintEnd_toEndOf="parent"
+       app:layout_constraintStart_toStartOf="parent"
+       app:layout_constraintTop_toTopOf="parent"
+       android:layout_marginTop="60dp">
+       <androidx.constraintlayout.widget.ConstraintLayout
+           android:layout_width="match_parent"
+           android:layout_height="match_parent">
 
-        <EditText
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:hint="Start Date"
-            android:textSize="18sp"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:id="@+id/start_date"
-            android:layout_marginLeft="10dp"
-            android:layout_width="0dp"/>
-        <EditText
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:hint="End Date"
-            android:clickable="false"
-            android:cursorVisible="false"
-            android:focusable="false"
-            android:focusableInTouchMode="false"
-            android:gravity="center"
-            android:id="@+id/end_date"
-            android:layout_marginLeft="5dp"
-            android:layout_marginRight="5dp"
-            android:textSize="18sp"
-            android:layout_width="0dp"/>
-        <TextView
-            android:layout_height="50dp"
-            android:layout_weight="1"
-            android:text="Search"
-            android:gravity="center"
-            android:onClick="searchRecord"
-            android:textSize="18sp"
-            android:layout_marginRight="10dp"
-            android:layout_width="0dp"/>
+           <LinearLayout
+               android:layout_width="match_parent"
+               android:layout_height="60dp"
+               android:weightSum="3"
+               android:paddingTop="10dp"
+               android:id="@+id/dateLayout"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toTopOf="parent"
+               >
+
+               <EditText
+                   android:id="@+id/start_date"
+                   android:layout_width="0dp"
+                   android:layout_height="50dp"
+                   android:layout_marginLeft="10dp"
+                   android:layout_weight="1"
+                   android:clickable="false"
+                   android:cursorVisible="false"
+                   android:focusable="false"
+                   android:focusableInTouchMode="false"
+                   android:gravity="center"
+                   android:hint="Start Date"
+                   android:textSize="18sp" />
+               <EditText
+                   android:layout_height="50dp"
+                   android:layout_weight="1"
+                   android:hint="End Date"
+                   android:clickable="false"
+                   android:cursorVisible="false"
+                   android:focusable="false"
+                   android:focusableInTouchMode="false"
+                   android:gravity="center"
+                   android:id="@+id/end_date"
+                   android:layout_marginLeft="5dp"
+                   android:layout_marginRight="5dp"
+                   android:textSize="18sp"
+                   android:layout_width="0dp"/>
+               <TextView
+                   android:layout_height="50dp"
+                   android:layout_weight="1"
+                   android:text="Search"
+                   android:gravity="center"
+                   android:onClick="searchRecord"
+                   android:textSize="18sp"
+                   android:layout_marginRight="10dp"
+                   android:layout_width="0dp"/>
 
 
-    </LinearLayout>
+           </LinearLayout>
+           <TextView
+               android:layout_height="50dp"
+               android:layout_weight="1"
+               android:id="@+id/total_payment"
+               android:gravity="center"
+               android:textSize="18sp"
+               android:layout_marginTop="10dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/dateLayout"
+               android:layout_width="match_parent"/>
 
+           <com.github.mikephil.charting.charts.BarChart
+               android:id="@+id/chart"
+               android:layout_width="match_parent"
+               android:layout_height="500dp"
+               android:layout_marginTop="10dp"
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/total_payment" />
+
+
+           <Button
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/chart"
+               android:layout_marginTop="20dp"
+               android:id="@+id/btn_report"
+               android:layout_width="200dp"
+               android:layout_height="55dp"
+               android:text="Generate report"
+               android:layout_gravity="center"
+               android:textColor="@color/white"
+               android:background="@color/black"
+               app:backgroundTint="@color/black"
+               tools:ignore="HardcodedText" />
+           <Button
+               app:layout_constraintEnd_toEndOf="parent"
+               app:layout_constraintStart_toStartOf="parent"
+               app:layout_constraintTop_toBottomOf="@+id/btn_report"
+               android:layout_marginTop="20dp"
+               android:layout_marginBottom="50dp"
+               android:id="@+id/btn_invoice"
+               android:layout_width="200dp"
+               android:layout_height="55dp"
+               android:text="Generate invoice"
+               android:layout_gravity="center"
+               android:textColor="@color/white"
+               android:background="@color/black"
+               app:backgroundTint="@color/black"
+               tools:ignore="HardcodedText" />
+       </androidx.constraintlayout.widget.ConstraintLayout>
+   </ScrollView>
 </androidx.constraintlayout.widget.ConstraintLayout>

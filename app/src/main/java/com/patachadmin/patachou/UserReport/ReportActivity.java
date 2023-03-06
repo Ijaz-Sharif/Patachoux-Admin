@@ -8,6 +8,7 @@ import androidx.appcompat.app.AppCompatActivity;
 
 import android.app.DatePickerDialog;
 import android.app.Dialog;
+import android.graphics.Color;
 import android.icu.text.SimpleDateFormat;
 import android.os.Build;
 import android.os.Bundle;
@@ -15,8 +16,14 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.DatePicker;
 import android.widget.EditText;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.github.mikephil.charting.charts.BarChart;
+import com.github.mikephil.charting.data.BarData;
+import com.github.mikephil.charting.data.BarDataSet;
+import com.github.mikephil.charting.data.BarEntry;
+import com.github.mikephil.charting.utils.ColorTemplate;
 import com.google.firebase.database.DataSnapshot;
 import com.google.firebase.database.DatabaseError;
 import com.google.firebase.database.DatabaseReference;
@@ -32,28 +39,49 @@ import java.util.Date;
 import java.util.Locale;
 
 public class ReportActivity extends AppCompatActivity {
+
+    BarChart chart;
+
+
+    // variable for our bar data.
+    BarData barData;
+
+    // variable for our bar data set.
+    BarDataSet barDataSet;
+
+    // array list for storing entries.
+    ArrayList barEntriesArrayList;
         String userId;
         EditText start_date,end_date;
+        TextView total_payment;
     private Dialog loadingDialog;
     SimpleDateFormat simpleDateFormat;
     final Calendar myCalendar= Calendar.getInstance();
     DatePickerDialog datePicker;
     ArrayList<Report> reportArrayList=new ArrayList<Report>();
+    int totalPayment;
     @RequiresApi(api = Build.VERSION_CODES.N)
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_report);
-       // userId=getIntent().getStringExtra("userId");
+        userId=getIntent().getStringExtra("userId");
+
+        chart =findViewById(R.id.chart);
+
+
         end_date=findViewById(R.id.end_date);
         start_date=findViewById(R.id.start_date);
+        total_payment=findViewById(R.id.total_payment);
         /////loading dialog
         loadingDialog=new Dialog(this);
         loadingDialog.setContentView(R.layout.loading_progress_dialog);
         loadingDialog.setCancelable(false);
         loadingDialog.getWindow().setBackgroundDrawable(getResources().getDrawable(R.drawable.slider_background));
         loadingDialog.getWindow().setLayout(ViewGroup.LayoutParams.WRAP_CONTENT,ViewGroup.LayoutParams.WRAP_CONTENT);
-      simpleDateFormat = new SimpleDateFormat("dd/M/yyyy");
+      simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
 
 
         DatePickerDialog.OnDateSetListener date =new DatePickerDialog.OnDateSetListener() {
@@ -83,7 +111,7 @@ public class ReportActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH,month);
                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                String myFormat="dd/M/yyyy";
+                String myFormat="dd/MM/yyyy";
                 java.text.SimpleDateFormat dateFormat=new java.text.SimpleDateFormat(myFormat, Locale.US);
                 end_date.setText(dateFormat.format(myCalendar.getTime()));
             }
@@ -215,7 +243,7 @@ public class ReportActivity extends AppCompatActivity {
 
 
     public void getReportsData(){
-
+        totalPayment=0;
        DatabaseReference dRef=    FirebaseDatabase.getInstance().getReference().child("SubAdmin")
                 .child(getUserId(this)).child("Order");
        reportArrayList.clear();
@@ -225,21 +253,40 @@ public class ReportActivity extends AppCompatActivity {
             @Override
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for (DataSnapshot postSnapshot : snapshot.getChildren()) {
+                    if(postSnapshot.child("UserId").getValue(String.class).equals(userId))
+                    {
+                        if(addRecord(postSnapshot.child("DeliveryOrderDate").getValue(String.class))){
+                            if(postSnapshot.child("Status").getValue(String.class).equals("Complete")){
+                                float payment= Float.parseFloat(postSnapshot.child("TotalPayment").getValue(String.class));
+                               String DATA= String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(3))
+                                       +String.valueOf(postSnapshot.child("DeliveryOrderDate").getValue(String.class).charAt(4));
+                                barEntriesArrayList.add(new BarEntry(payment,
+                                        Float.parseFloat(DATA)));
+//                                reportArrayList.add(new Report(
+//                                        postSnapshot.child("DeliveryOrderDate").getValue(String.class)
+//                                        , postSnapshot.child("TotalPayment").getValue(String.class),
+//                                        postSnapshot.child("DeliveryOrderTime").getValue(String.class)
+//                                ));
+                                totalPayment=totalPayment+Integer.parseInt(postSnapshot.child("TotalPayment").getValue(String.class));
 
-                    if(addRecord(postSnapshot.child("DeliveryOrderDate").getValue(String.class))){
-                        if(postSnapshot.child("Status").getValue(String.class).equals("Complete")){
-
-                        reportArrayList.add(new Report(
-                                postSnapshot.child("DeliveryOrderDate").getValue(String.class)
-                                , postSnapshot.child("TotalPayment").getValue(String.class),
-                                postSnapshot.child("DeliveryOrderTime").getValue(String.class)
-                               ));
-
+                            }
                         }
                     }
+
                 }
 
                 loadingDialog.dismiss();
+
+                barDataSet = new BarDataSet(barEntriesArrayList, "Data");
+                barData = new BarData(barDataSet);
+                chart.setData(barData);
+                barDataSet.setColors(ColorTemplate.MATERIAL_COLORS);
+                barDataSet.setValueTextColor(Color.BLACK);
+                barDataSet.setValueTextSize(16f);
+                chart.getDescription().setEnabled(false);
+
+
+
             }
 
             @Override
@@ -248,6 +295,8 @@ public class ReportActivity extends AppCompatActivity {
             }
         });
     }
+
+
 
 
 
