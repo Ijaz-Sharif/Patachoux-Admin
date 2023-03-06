@@ -50,7 +50,7 @@ public class ReportActivity extends AppCompatActivity {
     BarDataSet barDataSet;
 
     // array list for storing entries.
-    ArrayList barEntriesArrayList;
+    ArrayList barEntriesArrayList= new ArrayList<>();;
         String userId;
         EditText start_date,end_date;
         TextView total_payment;
@@ -90,7 +90,7 @@ public class ReportActivity extends AppCompatActivity {
                 myCalendar.set(Calendar.YEAR, year);
                 myCalendar.set(Calendar.MONTH,month);
                 myCalendar.set(Calendar.DAY_OF_MONTH,day);
-                String myFormat="dd/M/yyyy";
+                String myFormat="dd/MM/yyyy";
                 java.text.SimpleDateFormat dateFormat=new java.text.SimpleDateFormat(myFormat, Locale.US);
                 start_date.setText(dateFormat.format(myCalendar.getTime()));
             }
